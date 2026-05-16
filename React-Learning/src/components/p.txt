@@ -1,0 +1,195 @@
+import React, { useState } from "react";
+
+/*************************************************
+ PROJECT 1 — SMART TODO MANAGER
+ Uses: useState, forms, lists, conditional rendering
+ Time: ~30 minutes
+*************************************************/
+
+export function TodoApp() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  function addTask(e) {
+    e.preventDefault();
+
+    if (task === "") return;
+
+    const newTask = {
+      id: Date.now(),
+      text: task,
+      completed: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setTask("");
+  }
+
+  function toggleStatus(id) {
+    const updatedTasks = tasks.map((t) =>
+      t.id === id ? { ...t, completed: !t.completed } : t
+    );
+
+    setTasks(updatedTasks);
+  }
+
+  function deleteTask(id) {
+    const filteredTasks = tasks.filter((t) => t.id !== id);
+    setTasks(filteredTasks);
+  }
+
+  return (
+    <div>
+      <h2>Smart Todo Manager</h2>
+
+      <form onSubmit={addTask}>
+        <input
+          type="text"
+          placeholder="Enter task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+
+        <button type="submit">Add Task</button>
+      </form>
+
+      <hr />
+
+      {tasks.length === 0 ? (
+        <p>No tasks available</p>
+      ) : (
+        tasks.map((t) => (
+          <div key={t.id}>
+            <p>
+              {t.text} — {t.completed ? "Completed" : "Pending"}
+            </p>
+
+            <button onClick={() => toggleStatus(t.id)}>
+              Toggle Status
+            </button>
+
+            <button onClick={() => deleteTask(t.id)}>
+              Delete
+            </button>
+
+            <hr />
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+/*************************************************
+ PROJECT 2 — STUDENT REGISTRATION VIEWER
+ Uses: multiple inputs, array of objects CRUD
+ Time: ~30–45 minutes
+*************************************************/
+
+export function StudentApp() {
+  const [students, setStudents] = useState([]);
+
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [course, setCourse] = useState("");
+
+  function addStudent(e) {
+    e.preventDefault();
+
+    if (name === "" || age === "" || course === "") {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const newStudent = {
+      id: Date.now(),
+      name: name,
+      age: Number(age),
+      course: course,
+    };
+
+    setStudents([...students, newStudent]);
+
+    setName("");
+    setAge("");
+    setCourse("");
+  }
+
+  function deleteStudent(id) {
+    const filteredStudents = students.filter(
+      (student) => student.id !== id
+    );
+
+    setStudents(filteredStudents);
+  }
+
+  return (
+    <div>
+      <h2>Student Registration Viewer</h2>
+
+      <form onSubmit={addStudent}>
+        <input
+          type="text"
+          placeholder="Enter name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <input
+          type="number"
+          placeholder="Enter age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Enter course"
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+        />
+
+        <button type="submit">Add Student</button>
+      </form>
+
+      <hr />
+
+      <p>Total Students: {students.length}</p>
+
+      {students.length === 0 ? (
+        <p>No students registered</p>
+      ) : (
+        students.map((student) => (
+          <div key={student.id}>
+            <p>
+              {student.name} — {student.age} — {student.course}
+            </p>
+
+            <button onClick={() => deleteStudent(student.id)}>
+              Delete
+            </button>
+
+            <hr />
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+/*************************************************
+ HOW TO USE:
+
+ In main.jsx or App.jsx:
+
+ import { TodoApp } from "./App";
+ OR
+ import { StudentApp } from "./App";
+
+ Then render ONE at a time:
+
+ <TodoApp />
+ OR
+ <StudentApp />
+
+*************************************************/

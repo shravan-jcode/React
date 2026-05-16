@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Name Attribute Demo</title>
+</head>
+<body>
+
+  <h2>Simple Form</h2>
+
+  <form id="myForm">
+
+    Name:
+    <input type="text" name="username">
+    <br><br>
+
+    Email:
+    <input type="email" name="email">
+    <br><br>
+
+    <button type="submit">Submit</button>
+
+  </form>
+
+  <h3>Output:</h3>
+  <p id="result"></p>
+
+  <script>
+
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", function(e) {
+
+      e.preventDefault(); // stop page reload
+
+      const name = form.username.value;
+      const email = form.email.value;
+
+      document.getElementById("result").innerText =
+        "Name: " + name + " | Email: " + email;
+
+    });
+
+  </script>
+
+</body>
+</html>
