@@ -9,6 +9,7 @@ import NestedLooping from './components/NestedLooping'
 import UseState from './components/UseState'
 import LifeCycleDemo from './components/LifeCycleDemo'
 import P1 from './Practice/P1'
+import P2 from './Practice/P2'
 
 const App = () => {
 
@@ -33,7 +34,8 @@ const App = () => {
 
       {/* <LifeCycleDemo/> */}
 
-      <P1/>
+      {/* <P1/> */}
+      <P2/>
     </div>
   )
 }
